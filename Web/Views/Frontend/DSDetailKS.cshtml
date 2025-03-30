@@ -1,0 +1,22 @@
+﻿@model Web.Models.KhachSanDetailViewModel
+
+<h3 style="text-align:center">Danh sách phòng</h3>
+
+<div class="khachsan-container">
+    @foreach (var phong in Model.DanhSachPhong)
+    {
+        <div class="phong-item">
+            <a href="@Url.Action("Details", "Frontend", new { id = phong.id_phong })">
+                <img src="@($"/Content/Image/{phong.hinhanh}")" class="phong-img" />
+            </a>
+            <p class="phong-info">Tên phòng: @phong.sophong</p>
+            <p class="phong-info">Giá: @phong.gia.ToString() đ/ngày</p>
+            <p class="phong-info">Loại phòng: @phong.loaiphong</p>
+            <p class="phong-info">Khách sạn: @phong.KHACHSAN.tenkhachsan</p>
+            <p class="phong-info">Địa chỉ: @phong.KHACHSAN.diachi</p>
+        </div>
+    }
+</div>
+<div style="text-align:center;display:flex;justify-content:center">
+    <a class="btn btn-secondary" href="@Url.Action("HienthiKS", "Frontend")">Quay lại trang chủ</a>
+</div>

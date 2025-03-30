@@ -1,0 +1,86 @@
+﻿@model List<Web.Models.KHACHSAN>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Danh sách khách sạn : <a href="@Url.Action("AddKS")" class="btn btn-secondary">Thêm khách sạn</a></h2>
+
+@using (Html.BeginForm("SearchKS", "Admin", FormMethod.Get))
+{
+    <input type="text" name="keyword" placeholder="Tìm kiếm theo tên" style="height:37px" />
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+}
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Hình ảnh</th>
+            <th>Địa chỉ</th>
+            <th>Hạng sao</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Web.Models.KHACHSAN item in Model)
+        {
+            <tr>
+                <td>@item.tenkhachsan</td>
+                <td>
+                    <img src="@($"/Content/Image/{item.hinhanh}")" width="100" height="70" />
+                </td>
+                <td>@item.diachi</td>
+                <td>
+                    @if (item.hangsao == "5 sao")
+                    {
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    }
+                    @if (item.hangsao == "4 sao")
+                    {
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    }
+                    @if (item.hangsao == "3 sao")
+                    {
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    }
+                    @if (item.hangsao == "2 sao")
+                    {
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    }
+                    @if (item.hangsao == "1 sao")
+                    {
+                        <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    }
+
+
+                </td>
+                <td>@item.trangthai</td>
+                <td>
+                    <!-- Nút Xóa với popup xác nhận -->
+                    <a href="javascript:void(0);" onclick="confirmDelete(@item.id_khachsan)" class="btn btn-danger">Xóa</a>
+                    @Html.ActionLink("Sửa", "EditKS", new { id = item.id_khachsan }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    function confirmDelete(id) {
+        if (confirm('Bạn có chắc chắn muốn xóa khách sạn này không?')) {
+            // Nếu người dùng đồng ý, gọi đến action DeleteKS để xóa khách sạn
+            window.location.href = '@Url.Action("DeleteKS", "Admin", new { id = "__id__" })'.replace('__id__', id);
+        }
+    }
+</script>

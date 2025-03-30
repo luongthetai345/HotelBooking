@@ -1,0 +1,69 @@
+﻿@model Web.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Đăng ký";
+}
+<div style="margin: 50px">
+    <h2>Đăng ký</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            Họ tên
+            @Html.TextBoxFor(m => m.hoten, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.hoten)
+        </div>
+
+        <div class="form-group">
+            Ngày sinh
+            @Html.TextBoxFor(m => m.ngaysinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.ngaysinh)
+        </div>
+
+        <div class="form-group">
+            Số điện thoại
+            @Html.TextBoxFor(m => m.sodienthoai, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.sodienthoai)
+        </div>
+
+        <div class="form-group">
+            Email
+            @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.email)
+        </div>
+        <div class="form-group">
+            Giới tính
+            <div>
+                <label>
+                    @Html.RadioButtonFor(m => m.gioitinh, "Nam", new { @class = "radio", id = "gioitinhNam" }) Nam
+                </label>
+                <label>
+                    @Html.RadioButtonFor(m => m.gioitinh, "Nữ", new { @class = "radio", id = "gioitinhNu" }) Nữ
+                </label>
+            </div>
+            @Html.ValidationMessageFor(m => m.gioitinh)
+        </div>
+        <div class="form-group">
+            Tài khoản
+            @Html.TextBoxFor(m => m.taikhoan, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.taikhoan)
+        </div>
+
+        <div class="form-group">
+            Mật khẩu
+            @Html.PasswordFor(m => m.matkhau, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.matkhau)
+        </div>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+        </div>
+    }
+
+    <p>Đã có tài khoản? <a href="@Url.Action("Login", "Frontend")">Đăng nhập</a></p>
+
+
+
+</div>

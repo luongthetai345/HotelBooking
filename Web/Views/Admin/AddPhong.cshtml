@@ -1,0 +1,72 @@
+﻿@model Web.Models.PHONG
+
+@{
+    ViewBag.Title = "Thêm Phòng";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Thêm Phòng Mới</h2>
+
+@using (Html.BeginForm("AddPhong", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        Tên phòng
+        @Html.TextBoxFor(model => model.sophong, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.sophong)
+    </div>
+    <div class="form-group">
+        Hình ảnh
+        <input type="file" name="hinhanh" class="form-control" />
+        @Html.ValidationMessageFor(model => model.hinhanh)
+    </div>
+    <div class="form-group">
+        Giá:
+        @Html.TextBoxFor(model => model.gia, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.gia)
+    </div>
+
+    <div class="form-group">
+        Mô tả:
+        @Html.TextAreaFor(model => model.mota, new { @class = "form-control", rows = 3 })
+        @Html.ValidationMessageFor(model => model.mota)
+    </div>
+
+    <div class="form-group">
+        Dịch vụ:
+        @Html.TextAreaFor(model => model.dichvu, new { @class = "form-control" , row=3})
+        @Html.ValidationMessageFor(model => model.dichvu)
+    </div>
+
+    <div class="form-group">
+        Loại phòng
+        @Html.TextBoxFor(model => model.loaiphong, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.loaiphong)
+    </div>
+
+    <div class="form-group">
+        Số lượng giường
+        @Html.TextBoxFor(model => model.soluonggiuong, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.soluonggiuong)
+    </div>
+
+    <div class="form-group">
+        Trạng thái
+        @Html.TextBoxFor(model => model.trangthai, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.trangthai)
+    </div>
+
+    <div class="form-group">
+        Khách sạn
+        @Html.DropDownListFor(model => model.id_khachsan, (SelectList)ViewBag.ListKhachSan, "Chọn Khách Sạn", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.id_khachsan)
+    </div>
+
+
+    <br />
+    <button type="submit" class="btn btn-primary">Thêm Phòng</button>
+}
+
+@Html.ActionLink("Quay lại", "DanhSachPhong", null, new { @class = "btn btn-default" })

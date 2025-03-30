@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Thêm jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Thêm Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+
+    <!-- Thêm Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <style>
+        /* Đảm bảo tất cả các phần tử có box-sizing: border-box */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            color: #f8f9fa; /* Màu chữ trắng */
+            margin-right: auto; /* Đẩy liên kết Website sang trái */
+        }
+
+        /* Đảm bảo các mục menu ở bên phải */
+        .navbar-nav {
+            display: flex;
+            justify-content: flex-end; /* Đảm bảo các mục menu căn ra bên phải */
+        }
+        .navbar-nav {
+            display: flex;
+            gap: 30px; /* Khoảng cách giữa các mục menu */
+        }
+        .khachsan-container {
+            display: flex; /* Sử dụng Flexbox */
+            flex-wrap: wrap; /* Cho phép các mục khách sạn xuống dòng khi không đủ không gian */
+            gap: 20px; /* Khoảng cách giữa các mục khách sạn */
+            margin: 20px;
+            justify-content: space-evenly /* Căn chỉnh các phần tử đều giữa các dòng */
+        }
+
+        /* Tạo không gian trống ở 2 bên */
+        .phong-details-container::before, .phong-details-container::after {
+            content: ""; /* Tạo phần tử trống */
+            flex: 1; /* Các phần tử trống chiếm phần không gian còn lại */
+        }
+        /* Định dạng chung cho tất cả các phòng */
+        .phong-item {
+            width: 250px; /* Độ rộng của mỗi mục phòng */
+            padding: 15px;
+            margin: 10px;
+            border: 1px solid #ddd; /* Đường viền nhẹ */
+            border-radius: 8px; /* Bo góc nhẹ */
+            background-color: #f9f9f9; /* Màu nền sáng */
+            text-align: center; /* Căn giữa nội dung */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng khi hover */
+            display: flex;
+            flex-direction: column
+        }
+
+            /* Hiệu ứng hover cho phòng */
+            .phong-item:hover {
+                transform: translateY(-5px); /* Đẩy lên khi hover */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bóng đổ đậm hơn */
+            }
+        /* Định dạng chung cho tất cả các phòng */
+        .phongs-item {
+            width: 500px; /* Độ rộng của mỗi mục phòng */
+            padding: 15px;
+            margin: 10px;
+            border: 1px solid #ddd; /* Đường viền nhẹ */
+            border-radius: 8px; /* Bo góc nhẹ */
+            background-color: #f9f9f9; /* Màu nền sáng */
+            text-align: center; /* Căn giữa nội dung */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng khi hover */
+            display: flex;
+            flex-direction: column
+        }
+
+            /* Hiệu ứng hover cho phòng */
+            .phongs-item:hover {
+                transform: translateY(-5px); /* Đẩy lên khi hover */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bóng đổ đậm hơn */
+            }
+        /* Định dạng ảnh của phòng */
+        .phong-img {
+            width: 100%; /* Chiếm hết chiều rộng của div */
+            max-height: 150px; /* Giới hạn chiều cao ảnh */
+            object-fit: cover; /* Cắt ảnh cho phù hợp với không gian */
+            border-radius: 4px; /* Bo góc ảnh */
+            margin-bottom: 10px; /* Khoảng cách dưới ảnh */
+        }
+
+        .phongs-img {
+            width: 100%; /* Chiếm hết chiều rộng của div */
+            max-height: 250px; /* Giới hạn chiều cao ảnh */
+            object-fit: cover; /* Cắt ảnh cho phù hợp với không gian */
+            border-radius: 4px; /* Bo góc ảnh */
+            margin-bottom: 10px; /* Khoảng cách dưới ảnh */
+        }
+        /* Định dạng thông tin phòng */
+        .phong-info {
+            font-size: 14px; /* Kích thước chữ */
+            color: #333; /* Màu chữ */
+            margin: 5px 0; /* Khoảng cách giữa các dòng thông tin */
+        }
+
+            /* Làm đậm dòng đầu tiên (giá phòng) */
+            .phong-info:first-of-type {
+                font-weight: bold;
+            }
+
+            /* Màu xanh cho tên khách sạn */
+            .phong-info:last-of-type {
+                color: #007BFF;
+                font-size: 16px;
+            }
+
+        /* Định dạng liên kết (không gạch chân và thay đổi màu khi hover) */
+        .phong-item a {
+            text-decoration: none; /* Bỏ gạch chân của link */
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+        }
+
+            .phong-item a:hover {
+                color: #0056b3;
+            }
+
+        /* Chia bố cục thành 2 cột: 1 cột cho ảnh, 1 cột cho thông tin */
+        .phong-details-container {
+            display: flex; /* Sử dụng Flexbox để chia cột */
+            justify-content: space-between; /* Căn chỉnh các phần tử để có khoảng cách giữa 2 cột */
+            margin: 20px;
+        }
+
+        /* Cột chứa ảnh phòng */
+        .phong-img-container {
+            flex: 1; /* Cột ảnh chiếm 50% không gian */
+            max-width: 500px; /* Giới hạn chiều rộng ảnh */
+            padding-right: 20px; /* Khoảng cách giữa ảnh và thông tin */
+        }
+
+        /* Ảnh phòng */
+        .phong-img {
+            width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng của cột */
+            height: 500px; /* Tự động điều chỉnh chiều cao để giữ tỷ lệ ảnh */
+            border-radius: 10px; /* Bo góc cho ảnh */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho ảnh */
+        }
+        /* Ảnh phòng - chỉnh sửa chiều cao ảnh */
+        .phong-img-dt {
+            width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng của cột */
+            min-height: 300px; /* Chiều cao tối thiểu của ảnh (có thể điều chỉnh lại nếu cần) */
+            object-fit: cover; /* Cắt ảnh cho phù hợp với không gian */
+            border-radius: 10px; /* Bo góc cho ảnh */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho ảnh */
+            margin-right: 50px
+        }
+        /* Cột chứa thông tin phòng */
+        .phong-info-container {
+            flex: 1; /* Cột thông tin chiếm 50% không gian */
+            max-width: 500px; /* Giới hạn chiều rộng thông tin */
+            padding-left: 20px; /* Khoảng cách giữa ảnh và thông tin */
+        }
+
+            /* Định dạng các đoạn văn trong thông tin phòng */
+            .phong-info-container p {
+                font-size: 16px;
+                line-height: 1.6;
+                margin: 10px 0;
+            }
+
+            /* Tiêu đề thông tin khách sạn */
+            .phong-info-container h3 {
+                margin-top: 20px;
+                font-size: 20px;
+                color: #333;
+            }
+    </style>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            <a href="@Url.Action("Index", "FrontEnd")" class="navbar-brand">Website đặt phòng khách sạn</a>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-end">
+                <ul class="navbar-nav ">
+                    <li>@Html.ActionLink("Trang chủ", "Index", "FrontEnd", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Admin", "Login", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Khách sạn", "HienthiKS", "Frontend", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Phòng", "HienThiPhong", "Frontend", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (Session["User"] != null)
+                    {
+
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu">
+
+                                <span class="dropdown-item">Xin chào, @((Session["User"] as Web.Models.KHACHHANG).hoten)</span>
+                                <a class="dropdown-item" href="@Url.Action("UserInfo", "Frontend")">Thông tin cá nhân</a>
+                                <a class="dropdown-item" href="@Url.Action("Logout", "Frontend")">Đăng xuất</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Đăng ký", "Register", "Frontend", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Đăng nhập", "Login", "Frontend", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    <li>@Html.ActionLink("Đơn của bạn", "BookingConfirmation", "FrontEnd", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="">
+        @RenderBody()
+
+    </div>
+    <!-- Footer Section -->
+    <footer class="footer mt-5 bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <!-- About Us Section -->
+                <div class="col-md-4">
+                    <h5 class="footer-title">Về Chúng Tôi</h5>
+                    <p>Chúng tôi cung cấp dịch vụ khách sạn chất lượng với giá cả hợp lý. Khách hàng của chúng tôi luôn hài lòng với dịch vụ và sự tiện nghi.</p>
+                </div>
+
+                <!-- Useful Links Section -->
+                <div class="col-md-4">
+                    <h5 class="footer-title">Liên kết hữu ích</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="@Url.Action("Index", "FrontEnd")" class="footer-link">Trang chủ</a></li>
+                        <li><a href="@Url.Action("HienthiKS", "Frontend")" class="footer-link">Khách sạn</a></li>
+                        <li><a href="@Url.Action("HienThiPhong", "Frontend")" class="footer-link">Phòng</a></li>
+                        <li><a href="@Url.Action("BookingConfirmation", "FrontEnd")" class="footer-link">Đơn Đặt phòng</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Us Section -->
+                <div class="col-md-4">
+                    <h5 class="footer-title">Liên hệ</h5>
+                    <p>Email: <a href="mailto:luongthetai20@gmail.com" class="footer-link">luongthetai20@gmail.com</a></p>
+                    <p>Điện thoại: <a href="tel:+1234567890" class="footer-link">+123 456 7890</a></p>
+                    <p>Địa chỉ: Bắc Từ Liêm, Hà Nội</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="social-media-links text-center">
+            <a href="https://facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="text-center py-3">
+            <p>&copy; 2024 Amazing Hotel. Tất cả quyền lợi được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- CSS ngay trong thẻ -->
+    <style>
+    /* Footer Styling */
+    .footer {
+        background-color: #333;
+        color: white;
+        padding: 40px 0;
+    }
+
+    .footer-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .footer-link {
+        color: #f8f9fa;
+        text-decoration: none;
+        display: block;
+        margin: 5px 0;
+    }
+
+    .footer-link:hover {
+        color: #00d1b2;
+    }
+
+    .social-media-links {
+        margin-top: 20px;
+    }
+
+    .social-icon {
+        font-size: 30px;
+        color: #fff;
+        margin: 0 15px;
+        text-decoration: none;
+    }
+
+    .social-icon:hover {
+        color: #00d1b2;
+    }
+
+    </style>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

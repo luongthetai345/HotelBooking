@@ -1,0 +1,59 @@
+﻿@model Web.Models.KHACHSAN
+@{
+    ViewBag.Title = "EditKS";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("EditKS", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        ID
+        @Html.TextBoxFor(model => model.id_khachsan, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        Tên khách sạn
+        @Html.TextBoxFor(model => model.tenkhachsan, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="hinhanh">Hình ảnh</label>
+        <input type="file" name="hinhanh" />
+
+        @if (!string.IsNullOrEmpty(Model.hinhanh))
+        {
+            <div>
+                <img src="@Url.Content("~/Content/Image/" + Model.hinhanh)" alt="Student Image" style="width: 100px; height: auto;" />
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        Địa chỉ
+        @Html.TextBoxFor(model => model.diachi, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        Email
+        @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        Mô tả
+        @Html.TextAreaFor(model => model.mota, new { @class = "form-control", row=3 })
+    </div>
+
+
+    <div class="form-group">
+        Dịch vụ
+        @Html.TextAreaFor(model => model.dichvu, new { @class = "form-control" , row=3})
+    </div>
+    <div class="form-group">
+        Hạng sao
+        @Html.TextBoxFor(model => model.hangsao, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        Trạng thái
+        @Html.TextBoxFor(model => model.trangthai, new { @class = "form-control" })
+    </div><br />
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+}

@@ -1,0 +1,33 @@
+﻿@model Web.Models.KHACHHANG
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Xác Nhận Xóa Khách Sạn";
+}
+
+<h2>Xác Nhận Xóa</h2>
+
+<p>Bạn có chắc chắn muốn xóa khách hàng <strong>@Model.hoten</strong> không?</p>
+
+
+<div>
+    <h4>Thông tin khách hàng:</h4>
+    <p>Họ Tên: @Model.hoten</p>
+    <p>Số điện thoại: @Model.sodienthoai</p>
+    <p>Ngày sinh: @Model.ngaysinh</p>
+    <p>Giới tính: @Model.gioitinh</p>
+    <p>Email: @Model.email</p>
+    <p>Tài khoản: @Model.taikhoan</p>
+</div>
+
+<!-- Form xác nhận xóa -->
+@using (Html.BeginForm("DeleteConfirmed", "Admin", new { id = Model.id_khachhang }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <input type="submit" value="Xóa" class="btn btn-danger" />
+        <a href="@Url.Action("DanhSachKH", "Admin")" class="btn btn-secondary">Hủy</a>
+    </div>
+}

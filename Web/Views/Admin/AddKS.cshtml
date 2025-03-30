@@ -1,0 +1,66 @@
+﻿@model Web.Models.KHACHSAN
+
+@{
+    ViewBag.Title = "Thêm Khách Sạn";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Thêm Khách Sạn</h2>
+
+@using (Html.BeginForm("AddKS", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        Tên khách sạn
+        @Html.TextBoxFor(model => model.tenkhachsan, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.tenkhachsan)
+    </div>
+
+    <div class="form-group">
+        Hình ảnh
+        <input type="file" name="hinhanh" class="form-control" />
+        @Html.ValidationMessageFor(model => model.hinhanh)
+    </div>
+
+    <div class="form-group">
+        Địa chỉ
+        @Html.TextBoxFor(model => model.diachi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.diachi)
+    </div>
+
+    <div class="form-group">
+        Email
+        @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.email)
+    </div>
+
+    <div class="form-group">
+        Mô tả
+        @Html.TextAreaFor(model => model.mota, new { @class = "form-control" , row = 3})
+        @Html.ValidationMessageFor(model => model.mota)
+    </div>
+
+    <div class="form-group">
+        Dịch vụ
+        @Html.TextBoxFor(model => model.dichvu, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.dichvu)
+    </div>
+
+    <div class="form-group">
+        Hạng sao
+        @Html.TextBoxFor(model => model.hangsao, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.hangsao)
+    </div>
+
+    <div class="form-group">
+        Trạng thái
+        @Html.TextBoxFor(model => model.trangthai, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.trangthai)
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Thêm Khách Sạn</button>
+    </div>
+}

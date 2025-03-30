@@ -1,0 +1,37 @@
+﻿@model Web.Models.PHONG
+
+@{
+    ViewBag.Title = "Chi Tiết Phòng";
+}
+
+<h2 style="text-align:center">Chi Tiết Phòng</h2>
+
+<div class="phong-details-container">
+    <!-- Cột Ảnh -->
+    <div class="phong-img-container">
+        <img src="@($"/Content/Image/{Model.hinhanh}")" alt="Hình ảnh phòng" class="phong-img-dt" />
+    </div>
+
+    <!-- Cột Thông Tin -->
+    <div class="phong-info-container">
+        <p><strong>Số Phòng:</strong> @Model.sophong</p>
+        <p><strong>Giá:</strong> @String.Format("{0:N0}", Model.gia) đ/ngày</p>
+        <p><strong>Loại Phòng:</strong> @Model.loaiphong</p>
+        <p><strong>Số Lượng Giường:</strong> @Model.soluonggiuong</p>
+        <p><strong>Mô Tả:</strong> @Model.mota</p>
+        <p><strong>Dịch Vụ:</strong> @Model.dichvu</p>
+        <p><strong>Trạng Thái:</strong> @Model.trangthai</p>
+
+        @if (Model.KHACHSAN != null)
+        {
+            <p><strong>Khách Sạn:</strong> @Model.KHACHSAN.tenkhachsan</p>
+        }
+    </div>
+</div>
+
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+    <a href="@Url.Action("HienthiKS", "Frontend")" style=" display: flex; margin-right:50px " class="btn btn-primary">Quay lại</a>
+
+    <!-- Link Đặt phòng -->
+    <a href="@Url.Action("BookRoom", "Frontend", new { id = Model.id_phong })" style=" display: flex; " class="btn btn-success">Đặt phòng</a>
+</div>

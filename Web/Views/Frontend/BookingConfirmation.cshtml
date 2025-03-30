@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Xác nhận đặt phòng";
+}
+<div style="margin:20px">
+    <h2>Đơn đặt phòng của bạn</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Phòng</th>
+                <th>Khách sạn</th>
+                <th>Ngày đến</th>
+                <th>Ngày đi</th>
+                <th>Số người</th>
+                <th>Giá tổng</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th> <!-- Thêm cột cho nút Hủy -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <!-- Kiểm tra xem ngayden có giá trị hay không rồi mới gọi ToString("dd/MM/yyyy") -->
+                    <td>@booking.PHONG.sophong</td>  <!-- Hiển thị tên phòng -->
+                    <td>@booking.KHACHSAN.tenkhachsan</td>  <!-- Hiển thị tên khách sạn -->
+                    <td>@booking.ngayden.ToString("dd/MM/yyyy")</td>  <!-- Hiển thị ngày đến -->
+                    <td>@booking.ngaydi.ToString("dd/MM/yyyy")</td>  <!-- Hiển thị ngày đi -->
+                    <td>@booking.songuoi</td>
+                    <td>@String.Format("{0:N0}", booking.giatong)</td>
+                    <td>@booking.trangthai</td>
+                    <td>
+                        <!-- Nút Hủy đặt phòng -->
+                        @if (booking.trangthai != "Đã hủy đơn")
+                        {
+                            <button class="btn btn-danger" onclick="confirmCancellation(@booking.id_don)">Hủy đặt phòng</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Thêm phần để xác nhận hủy -->
+<script>
+    function confirmCancellation(bookingId) {
+        if (confirm("Bạn có chắc muốn hủy không?")) {
+            // Gửi yêu cầu hủy qua Ajax
+            $.ajax({
+                url: '@Url.Action("CancelBooking", "Frontend")', // Tên action để xử lý hủy
+                type: 'POST',
+                data: { id: bookingId },
+                success: function (response) {
+                    if (response.success) {
+                        alert("Đơn đặt phòng đã bị hủy!");
+                        location.reload(); // Reload trang để cập nhật trạng thái
+                    } else {
+                        alert("Có lỗi xảy ra, không thể hủy đơn!");
+                    }
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Trang Quản Lý - Admin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Chào mừng đến với trang admin!</h2>
+        <p>Đây là nơi bạn có thể quản lý khách sạn, phòng, khách hàng và các đơn đặt phòng.</p>
+    </div>
+</div>
+
+<!-- Giới thiệu nhanh về các chức năng quản lý -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Quản lý Khách sạn</div>
+            <div class="card-body">
+                <h5 class="card-title">Danh sách Khách sạn</h5>
+                <p class="card-text">Xem và quản lý thông tin khách sạn của bạn.</p>
+                <a href="@Url.Action("DanhSachKS", "Admin")" class="btn btn-light">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Quản lý Phòng</div>
+            <div class="card-body">
+                <h5 class="card-title">Danh sách Phòng</h5>
+                <p class="card-text">Xem và quản lý các phòng trong khách sạn của bạn.</p>
+                <a href="@Url.Action("DanhSachPhong", "Admin")" class="btn btn-light">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Quản lý Khách hàng</div>
+            <div class="card-body">
+                <h5 class="card-title">Danh sách Khách hàng</h5>
+                <p class="card-text">Quản lý thông tin của khách hàng.</p>
+                <a href="@Url.Action("DanhSachKH", "Admin")" class="btn btn-light">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Quản lý Đơn Đặt Phòng -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-header">Quản lý Đơn Đặt Phòng</div>
+            <div class="card-body">
+                <h5 class="card-title">Danh sách Đơn Đặt Phòng</h5>
+                <p class="card-text">Xem và quản lý các đơn đặt phòng của khách hàng.</p>
+                <a href="@Url.Action("DonDatPhong", "Admin")" class="btn btn-light">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Thống kê </div>
+            <div class="card-body">
+                <h5 class="card-title">Xem thống kê </h5>
+                <p class="card-text">Theo dõi và thống kê các đơn đặt phòng.</p>
+                <a href="@Url.Action("ThongKe", "Admin")" class="btn btn-light">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+

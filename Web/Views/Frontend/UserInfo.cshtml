@@ -1,0 +1,19 @@
+﻿@model Web.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+}
+<div style="margin: 20px">
+    <h2>Thông tin cá nhân</h2>
+
+    <div class="user-info">
+        <p><strong>Họ và tên:</strong> @Model.hoten</p>
+        <p><strong>Ngày sinh:</strong> @(Model.ngaysinh.HasValue ? Model.ngaysinh.Value.ToString("dd/MM/yyyy") : "Chưa có ngày đến")</p>
+        <p><strong>Số điện thoại:</strong> @Model.sodienthoai</p>
+        <p><strong>Email:</strong> @Model.email</p>
+        <p><strong>Giới tính:</strong> @Model.gioitinh</p>
+        <br />
+        <a href="@Url.Action("EditUserInfo", "Frontend")" class="btn btn-primary">Chỉnh sửa thông tin</a>
+    </div>
+
+</div>

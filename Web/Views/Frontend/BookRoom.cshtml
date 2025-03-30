@@ -1,0 +1,38 @@
+﻿@model Web.Models.DONDATPHONG
+<div style="margin:20px">
+    <h2>Đặt Phòng</h2>
+    @Html.ValidationSummary(true)
+    @using (Html.BeginForm("BookRoom", "Frontend", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Thêm trường ẩn cho id_phong và id_khachsan -->
+        @Html.HiddenFor(model => model.id_phong)
+        @Html.HiddenFor(model => model.id_khachsan)
+
+        <!-- Các trường thông tin khác -->
+        <div class="form-group">
+            Ngày đến
+            @Html.TextBoxFor(model => model.ngayden, new { @class = "form-control", type = "date" })
+        </div>
+
+        <div class="form-group">
+            Ngày đi
+            @Html.TextBoxFor(model => model.ngaydi, new { @class = "form-control", type = "date" })
+        </div>
+
+        <div class="form-group">
+            Số người
+            @Html.TextBoxFor(model => model.songuoi, new { @class = "form-control" })
+        </div>
+        @Html.HiddenFor(model => model.giatong)
+        <br />
+        <!-- Thêm nút submit -->
+        using (Html.BeginForm())
+        {
+            <input type="submit" value="Đặt phòng" />
+        }
+
+    }
+
+</div>

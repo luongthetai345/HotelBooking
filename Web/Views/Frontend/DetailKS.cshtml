@@ -1,0 +1,57 @@
+﻿@model Web.Models.KhachSanDetailViewModel
+<h2 style="display:flex;justify-content:center">Chi tiết khách sạn: @Model.KhachSan.tenkhachsan</h2>
+
+<div class="phong-details-container">
+    <!-- Cột Ảnh -->
+    <div class="phong-img-container">
+        <img src="@($"/Content/Image/{Model.KhachSan.hinhanh}")" class="phong-img-dt" />
+    </div>
+
+    <!-- Cột Thông Tin -->
+    <div class="phong-info-container">
+        <p><strong>Tên khách sạn:</strong> @Model.KhachSan.tenkhachsan</p>
+        <p><strong>Địa chỉ:</strong> @Model.KhachSan.diachi</p>
+        <p>
+            <strong>Hạng sao:</strong>
+            @if (Model.KhachSan.hangsao == "5 sao")
+            {
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+            }
+            @if (Model.KhachSan.hangsao == "4 sao")
+            {
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+            }
+            @if (Model.KhachSan.hangsao == "3 sao")
+            {
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+            }
+            @if (Model.KhachSan.hangsao == "2 sao")
+            {
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+            }
+            @if (Model.KhachSan.hangsao == "1 sao")
+            {
+                <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+            }
+        </p>
+        <p><strong>Mô tả:</strong> @Model.KhachSan.mota</p>
+        <p><strong>Dịch vụ:</strong> @Model.KhachSan.dichvu</p>
+        <a href="@Url.Action("DSDetailKS", "Frontend", new {id = Model.KhachSan.id_khachsan})" class=" btn btn-primary" >Xem danh sách phòng</a>
+    </div>
+</div>
+<div style="display:flex; justify-content:center">
+    <a class="btn btn-secondary" href="@Url.Action("HienthiKS", "Frontend")">Quay lại trang chủ</a>
+
+</div>
+
+

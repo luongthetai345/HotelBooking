@@ -1,0 +1,52 @@
+﻿@model Web.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin cá nhân";
+}
+<div style="margin:20px">
+    <h2>Chỉnh sửa thông tin cá nhân</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Full Name Field -->
+        <div class="form-group">
+            Họ tên
+            @Html.TextBoxFor(model => model.hoten, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.hoten, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Date of Birth Field -->
+        <div class="form-group">
+            Ngày sinh
+            @Html.TextBoxFor(model => model.ngaysinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(model => model.ngaysinh, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Phone Number Field -->
+        <div class="form-group">
+            Số điện thoại
+            @Html.TextBoxFor(model => model.sodienthoai, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.sodienthoai, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+            Email
+            @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Gender Field -->
+        <div class="form-group">
+            Giới tính
+            @Html.DropDownListFor(model => model.gioitinh, new SelectList(new[] { "Nam", "Nữ" }), "-- Chọn giới tính --", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.gioitinh, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
+    }
+
+</div>

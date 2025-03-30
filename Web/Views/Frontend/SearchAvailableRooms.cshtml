@@ -1,0 +1,15 @@
+﻿@model List<Web.Models.PHONG>
+
+@{
+    ViewBag.Title = "Tìm kiếm phòng trống";
+}
+
+<h2>Tìm kiếm phòng trống</h2>
+
+
+@using (Html.BeginForm("SearchAvailableRooms", "Frontend", FormMethod.Get))
+{
+    <input type="date" id="ngayden" name="ngayden" placeholder="Ngày đến" />
+    <input type="date" id="ngaydi" name="ngaydi" placeholder="Ngày đi"/>
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+}

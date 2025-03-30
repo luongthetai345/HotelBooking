@@ -1,0 +1,64 @@
+﻿@model List<Web.Models.DONDATPHONG>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Danh sách đơn đặt phòng : </h2>
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ngày đến</th>
+            <th>Ngày đi</th>
+            <th>Số người</th>
+            <th>Giá tổng</th>
+            <th>Trạng thái</th>
+            <th>Khách hàng</th>
+            <th>Phòng</th>
+            <th>Khách sạn</th>
+            <th>Xử lý</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Web.Models.DONDATPHONG item in Model)
+        {
+            <tr>
+                <td>@(item.ngayden.HasValue ? item.ngayden.Value.ToString("dd/MM/yyyy") : "Chưa có ngày đến")</td>
+                <td>@(item.ngaydi.HasValue ? item.ngaydi.Value.ToString("dd/MM/yyyy") : "Chưa có ngày đi")</td>
+                <td>@item.songuoi</td>
+                <td>@String.Format("{0:N0}", item.giatong)</td>
+                <td>
+                    @if (item.trangthai == "Chờ xác nhận")
+                    {
+                        <!-- Tạo một form để submit POST request cập nhật trạng thái -->
+                        using (Html.BeginForm("CapNhatTrangThai", "Admin", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", item.id_don)
+                            <button type="submit" class="btn btn-warning">Chờ xác nhận</button>
+                        }
+                    }
+                    else
+                    {
+                        @item.trangthai
+                    }
+                </td>
+                <td>@item.KHACHHANG.hoten</td>
+                <td>@item.PHONG.sophong</td>
+                <td>@item.PHONG.KHACHSAN.tenkhachsan</td>
+                <td>
+                    <a href="javascript:void(0);" onclick="confirmDelete(@item.id_don)" class="btn btn-danger">Xóa</a>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    function confirmDelete(id) {
+        if (confirm('Bạn có chắc chắn muốn xóa đơn này không?')) {
+            // Nếu người dùng đồng ý, gọi đến action DeleteKS để xóa khách sạn
+            window.location.href = '@Url.Action("DeleteDon", "Admin", new { id = "__id__" })'.replace('__id__', id);
+        }
+    }
+</script>

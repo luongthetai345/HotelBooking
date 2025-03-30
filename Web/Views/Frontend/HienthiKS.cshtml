@@ -1,0 +1,48 @@
+﻿@model List<Web.Models.KHACHSAN>
+<h1 style="text-align:center; margin:20px">Dach sách khách sạn</h1>
+
+<div class="khachsan-container">
+    @foreach (Web.Models.KHACHSAN khachsan in Model)
+    {
+        <div class="phong-item">
+            <a href="@Url.Action("DetailKS", "Frontend", new {id = khachsan.id_khachsan})">
+                <img src="@($"/Content/Image/{khachsan.hinhanh}")" class="phong-img" />
+            </a>
+            <p class="phong-info">Tên khách sạn: @khachsan.tenkhachsan</p>
+            <p class="phong-info">Địa chỉ: @khachsan.diachi</p>
+            <p class="phong-info">
+                @if (khachsan.hangsao == "5 sao")
+                {
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                }
+                @if (khachsan.hangsao == "4 sao")
+                {
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                }
+                @if (khachsan.hangsao == "3 sao")
+                {
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                }
+                @if (khachsan.hangsao == "2 sao")
+                {
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                }
+                @if (khachsan.hangsao == "1 sao")
+                {
+                    <img src="/Content/Image/star-clipart-lg.png" width="20" alt="Star" />
+                }
+            </p>
+            <a href="@Url.Action("DSDetailKS", "Frontend", new {id = khachsan.id_khachsan})" class=" btn btn-primary" style="color:white">Xem danh sách phòng</a>
+        </div>
+    }
+</div>

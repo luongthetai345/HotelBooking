@@ -1,0 +1,48 @@
+﻿@model List<Web.Models.PHONG>
+<h1 style="text-align:center; margin:20px">Dach sách phòng</h1>
+<div style="display:flex; justify-content:center; margin: 20px">
+
+    @using (Html.BeginForm("HienThiPhong", "Frontend", FormMethod.Get))
+    {
+        <div style="display:flex; flex-direction:row;margin-bottom:50px; margin-left:0px; padding:0px">
+            <div>
+                <h3 style="margin-right: 50px; margin-top:42px">Nhập thời gian bạn muốn đặt:</h3>
+            </div>
+            <div style="margin-right: 20px">
+                <div style="display:flex; flex-direction:row">
+                    <p style="margin-top: 8px">Ngày đến: </p>
+                    <input type="date" id="ngayden" name="ngayden" placeholder="Ngày đến" class="form-control" style="width:500px;margin-left:20px" />
+                </div> <br />
+                <div style="display:flex; flex-direction:row">
+                    <p style="margin-top: 8px">Ngày đi: </p>
+                    <input type="date" id="ngaydi" name="ngaydi" placeholder="Ngày đi" class="form-control" style="width:500px;margin-left:32px" /><br />
+                </div>
+            </div>
+            <div style="margin: 30px; margin-top: 42px">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+        </div>
+    }
+
+</div>
+<div style="text-align:center">
+    @if (ViewBag.NgayDen != null && ViewBag.NgayDi != null)
+    {
+        <h4 class="search-info">Danh sách phòng trống trong lịch đặt của bạn: Từ @ViewBag.NgayDen đến @ViewBag.NgayDi</h4>
+    }
+</div>
+<div class="khachsan-container">
+    @foreach (var phong in Model)
+    {
+        <div class="phong-item">
+            <p>
+                <img src="@($"/Content/Image/{phong.hinhanh}")" class="phong-img" />
+            </p>
+            <p class="phong-info">Tên phòng: @phong.sophong</p>
+            <p class="phong-info">Giá: @String.Format("{0:N0}", phong.gia) đ/ngày</p>
+            <p class="phong-info">Khách sạn: @phong.KHACHSAN.tenkhachsan</p>
+            <p class="phong-info">Địa chỉ: @phong.KHACHSAN.diachi</p>
+            <a href="@Url.Action("Details", "Frontend", new { id = phong.id_phong })" class="btn btn-primary" style="color:white">Xem chi tiết</a>
+        </div>
+    }
+</div>

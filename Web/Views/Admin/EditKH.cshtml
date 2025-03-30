@@ -1,0 +1,71 @@
+﻿@model Web.Models.KHACHHANG
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Sửa Khách Hàng";
+}
+
+<h2>Sửa Khách Hàng</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        ID
+        @Html.TextBoxFor(model => model.id_khachhang, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.id_khachhang)
+    </div>
+
+    <div class="form-group">
+        Họ tên
+        @Html.TextBoxFor(model => model.hoten, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.hoten)
+    </div>
+
+    <div class="form-group">
+        Ngày sinh
+        @Html.TextBoxFor(model => model.ngaysinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(model => model.ngaysinh)
+    </div>
+
+    <div class="form-group">
+        Số điện thoại
+        @Html.TextBoxFor(model => model.sodienthoai, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.sodienthoai)
+    </div>
+
+    <div class="form-group">
+        Email
+        @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.email)
+    </div>
+
+    <div class="form-group">
+        Giới tính
+        <div>
+            <label>
+                @Html.RadioButtonFor(model => model.gioitinh, "Nam", new { @checked = Model.gioitinh == "Nam" }) Nam
+            </label>
+            <label>
+                @Html.RadioButtonFor(model => model.gioitinh, "Nữ", new { @checked = Model.gioitinh == "Nữ" }) Nữ
+            </label>
+        </div>
+        @Html.ValidationMessageFor(model => model.gioitinh)
+    </div>
+
+    <div class="form-group">
+        Tài khoản
+        @Html.TextBoxFor(model => model.taikhoan, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.taikhoan)
+    </div>
+
+    <div class="form-group">
+        Mật khẩu
+        @Html.PasswordFor(model => model.matkhau, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.matkhau)
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Sửa Khách Hàng</button>
+}
